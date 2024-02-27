@@ -1,10 +1,11 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      0.1
+// @version      0.2
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
-// @match        https://www.waze.com/editor*
-// @match        https://www.waze.com/*/editor*
+// @match        https://beta.waze.com/*editor*
+// @match        https://www.waze.com/*editor*
+// @exclude      https://www.waze.com/*user/*editor/*
 // @license      GNU GPLv3
 // @grant        none
 // ==/UserScript==
@@ -12,32 +13,36 @@
 /* global W */
 
 function UpdateZoomDisplay() {
-    const zoomBar = $('.zoom-bar-container')[0];
-    const zoomDisplayLevel = $('#zoomdisplaycontainer > p')[0];
-    const zoomLevel = W.map.getZoom();
+    try {
+        const zoomBar = $('.zoom-bar-container')[0];
+        const zoomDisplayLevel = $('#zoomdisplaycontainer > p')[0];
+        const zoomLevel = W.map.getZoom();
 
-    zoomDisplayLevel.innerText = zoomLevel;
-    switch (zoomLevel)
-    {
-        case 4:
-        case 5:
-        case 6:
-        case 7:
-        case 8:
-        case 9:
-        case 10:
-        case 11:
-        case 12:
-        case 13:
-            zoomBar.style.background = '#ef9a9a';
-            break;
-        case 14:
-        case 15:
-            zoomBar.style.background = '#ffe082';
-            break;
-        default:
-            zoomBar.style.background = '#ffffff';
-            break;
+        zoomDisplayLevel.innerText = zoomLevel;
+        switch (zoomLevel) {
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+                zoomBar.style.background = '#ef9a9a';
+                break;
+            case 14:
+            case 15:
+                zoomBar.style.background = '#ffe082';
+                break;
+            default:
+                zoomBar.style.background = '#ffffff';
+                break;
+        }
+    }
+    catch {
+        AddZoomDisplay();
     }
 }
 
