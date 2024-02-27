@@ -1,11 +1,12 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      0.2
+// @version      2024.02.27.01
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        https://beta.waze.com/*editor*
 // @match        https://www.waze.com/*editor*
 // @exclude      https://www.waze.com/*user/*editor/*
+// @require         https://greasyfork.org/scripts/24851-wazewrap/code/WazeWrap.js
 // @license      GNU GPLv3
 // @grant        none
 // ==/UserScript==
@@ -52,12 +53,13 @@ async function AddZoomDisplay() {
     zoomDisplayContainer.append($('<p>', {id:'zoomdisplaylevel', style:'font-size:20px;text-align:center;margin:0px;'}));
     zoomDisplayContainer.insertAfter(zoomBar.firstChild);
     UpdateZoomDisplay();
-    W.map.events.register("zoomend", null, UpdateZoomDisplay);
 }
 
 function ScriptInit()
 {
     AddZoomDisplay();
+    W.map.events.register("zoomend", null, UpdateZoomDisplay);
+    W.editingMediator.actionManager.events.register("afterclearactions",null,AddZoomDisplay);
 }
 
 document.addEventListener("wme-ready", ScriptInit, {once: true});
