@@ -6,7 +6,6 @@
 // @match        https://beta.waze.com/*editor*
 // @match        https://www.waze.com/*editor*
 // @exclude      https://www.waze.com/*user/*editor/*
-// @require         https://greasyfork.org/scripts/24851-wazewrap/code/WazeWrap.js
 // @license      GNU GPLv3
 // @grant        none
 // ==/UserScript==
