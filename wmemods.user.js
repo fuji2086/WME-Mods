@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      2024.02.27.02
+// @version      2024.02.27.03
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        https://beta.waze.com/*editor*
@@ -54,11 +54,36 @@ async function AddZoomDisplay() {
     UpdateZoomDisplay();
 }
 
+function waitForElm(selector) {
+    return new Promise(resolve => {
+        if (document.querySelector(selector)) {
+            return resolve(document.querySelector(selector));
+        }
+
+        const observer = new MutationObserver(mutations => {
+            if (document.querySelector(selector)) {
+                observer.disconnect();
+                resolve(document.querySelector(selector));
+            }
+        });
+
+        // If you get "parameter 1 is not of type 'Node'" error, see https://stackoverflow.com/a/77855838/492336
+        observer.observe(document.body, {
+            childList: true,
+            subtree: true
+        });
+    });
+}
+
+function onSave() {
+    waitForElm('.zoom-bar-container').then(AddZoomDisplay);
+}
+
 function ScriptInit()
 {
     AddZoomDisplay();
     W.map.events.register("zoomend", null, UpdateZoomDisplay);
-    W.editingMediator.actionManager.events.register("afterclearactions",null,AddZoomDisplay);
+    W.editingMediator.actionManager.events.register("afterclearactions",null,onSave);
 }
 
 document.addEventListener("wme-ready", ScriptInit, {once: true});
