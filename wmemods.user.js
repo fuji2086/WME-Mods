@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      2024.02.27.03
+// @version      2024.02.27.04
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        https://beta.waze.com/*editor*
@@ -76,7 +76,9 @@ function waitForElm(selector) {
 }
 
 function onSave() {
-    waitForElm('.zoom-bar-container').then(AddZoomDisplay);
+    if (!$('.zoom-bar-container')) {
+        waitForElm('.zoom-bar-container').then(AddZoomDisplay);
+    }
 }
 
 function ScriptInit()
