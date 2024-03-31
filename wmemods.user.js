@@ -1,5 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
+// @namespace    https://greasyfork.org/en/users/456696
 // @version      2024.02.27.04
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
