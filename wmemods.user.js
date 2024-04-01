@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      2024.03.31.01
+// @version      2024.03.31.02
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        *://*.waze.com/*editor*
@@ -27,11 +27,11 @@ const SETTINGS_STORE_NAME = 'wme_mods';
 const SCRIPT_NAME = GM_info.script.name;
 const SCRIPT_VERSION = GM_info.script.version;
 const DOWNLOAD_URL = 'https://greasyfork.org/scripts/491345/code/WME%20Mods.user.js';
-const UPDATE_MESSAGE = '';
+const UPDATE_MESSAGE = 'Changed the min zoom level for road type highlighting';
 let _settings = {};
 let _mapLayer = null;
 const MAP_LAYER_Z_INDEX = 375;
-const MIN_ZOOM_LEVEL = 15;
+const MIN_ZOOM_LEVEL = 14;
 let _lastPromise = null;
 let _lastContext = null;
 let _rtCallCount = 0;
