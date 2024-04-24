@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      2024.03.31.02
+// @version      2024.04.24.01
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        *://*.waze.com/*editor*
@@ -27,7 +27,7 @@ const SETTINGS_STORE_NAME = 'wme_mods';
 const SCRIPT_NAME = GM_info.script.name;
 const SCRIPT_VERSION = GM_info.script.version;
 const DOWNLOAD_URL = 'https://greasyfork.org/scripts/491345/code/WME%20Mods.user.js';
-const UPDATE_MESSAGE = 'Changed the min zoom level for road type highlighting';
+const UPDATE_MESSAGE = 'WV surface type changes';
 let _settings = {};
 let _mapLayer = null;
 const MAP_LAYER_Z_INDEX = 375;
@@ -152,9 +152,8 @@ const STATE_SETTINGS = {
                 return layer.getFeatureRoadType(feature);
             }
             const rtCode = feature.attributes[layer.rtPropName];
-            let rt = rtCode;
-            if (rtCode <= 2) rt = 1;
-            else if (rtCode <= 5) rt = 3;
+            if (rtCode == 99 || rtCode == 1.1) rt = 1;
+            else if (rtCode == 1.3 || rtCode == 1.2) rt = 3;
             else rt = 6;
             const id = feature.attributes.ROUTE_ID;
             return STATE_SETTINGS.global.getRoadTypeFromRT(rt, layer);
