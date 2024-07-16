@@ -27,7 +27,7 @@ const SETTINGS_STORE_NAME = 'wme_mods';
 const SCRIPT_NAME = GM_info.script.name;
 const SCRIPT_VERSION = GM_info.script.version;
 const DOWNLOAD_URL = 'https://greasyfork.org/scripts/491345/code/WME%20Mods.user.js';
-const UPDATE_MESSAGE = 'WV surface type changes';
+const UPDATE_MESSAGE = 'Z-Index changes';
 let _settings = {};
 let _mapLayer = null;
 let MAP_LAYER_Z_INDEX;
