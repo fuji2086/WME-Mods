@@ -30,7 +30,7 @@ const DOWNLOAD_URL = 'https://greasyfork.org/scripts/491345/code/WME%20Mods.user
 const UPDATE_MESSAGE = 'WV surface type changes';
 let _settings = {};
 let _mapLayer = null;
-const MAP_LAYER_Z_INDEX = 375;
+let MAP_LAYER_Z_INDEX;
 const MIN_ZOOM_LEVEL = 14;
 let _lastPromise = null;
 let _lastContext = null;
@@ -305,6 +305,7 @@ function onSave() {
 function toggleRoadTypeHighlight(firstrun = false) {
     if (_settings.roadTypeEnabled) {
         W.map.addLayer(_mapLayer);
+        MAP_LAYER_Z_INDEX = W.map.roadLayer.getZIndex() - 3;
         _mapLayer.setZIndex(MAP_LAYER_Z_INDEX);
 
         setInterval(checkLayerZIndex, 200);
