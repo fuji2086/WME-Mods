@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      2024.04.24.01
+// @version      2024.07.15.01
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        *://*.waze.com/*editor*
