@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         WME Mods
-// @version      2024.07.15.01
+// @version      2024.10.08.01
 // @description  Modifies the Waze Map Editor to suit my needs
 // @author       fuji2086
 // @match        *://*.waze.com/*editor*
@@ -11,8 +11,9 @@
 // @connect      greasyfork.org
 // @connect      wv.gov
 // @license      GNU GPLv3
-// @downloadURL  https://update.greasyfork.org/scripts/491345/WME%20Mods.user.js
-// @updateURL    https://update.greasyfork.org/scripts/491345/WME%20Mods.user.js
+// @namespace https://greasyfork.org/en/users/456696
+// @downloadURL https://update.greasyfork.org/scripts/491345/WME%20Mods.user.js
+// @updateURL https://update.greasyfork.org/scripts/491345/WME%20Mods.meta.js
 // ==/UserScript==
 
 /* global W */
@@ -27,7 +28,7 @@ const SETTINGS_STORE_NAME = 'wme_mods';
 const SCRIPT_NAME = GM_info.script.name;
 const SCRIPT_VERSION = GM_info.script.version;
 const DOWNLOAD_URL = 'https://greasyfork.org/scripts/491345/code/WME%20Mods.user.js';
-const UPDATE_MESSAGE = 'Z-Index changes';
+const UPDATE_MESSAGE = 'Remove some dependency on OpenLayers';
 let _settings = {};
 let _mapLayer = null;
 let MAP_LAYER_Z_INDEX;
@@ -250,7 +251,7 @@ function getUrl(context, queryType, queryParams) {
 
     const whereParts = [];
     const geometry = {
-        xmin: extent.left, ymin: extent.bottom, xmax: extent.right, ymax: extent.top, spatialReference: { wkid: 102100, latestWkid: 3857 }
+        xmin: extent[0], ymin: extent[1], xmax: extent[2], ymax: extent[3], spatialReference: { wkid: 4326 }
     };
     const geometryStr = JSON.stringify(geometry);
     const stateWhereClause = state.getWhereClause(context);
