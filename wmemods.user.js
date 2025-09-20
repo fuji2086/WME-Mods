@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name		WME Mods
-// @version		2025.09.04.00
+// @version		2025.09.20.00
 // @description	Modifies the Waze Map Editor to suit my needs
 // @author		fuji2086
 // @match		*://*.waze.com/*editor*
@@ -15,7 +15,7 @@
 // @license		GNU GPLv3
 // @namespace	https://greasyfork.org/en/users/456696
 // @downloadURL https://update.greasyfork.org/scripts/491345/WME%20Mods.user.js
-// @updateURL	https://update.greasyfork.org/scripts/491345/WME%20Mods.meta.js
+// @updateURL https://update.greasyfork.org/scripts/491345/WME%20Mods.meta.js
 // ==/UserScript==
 
 /* global $ */
@@ -298,15 +298,6 @@
 		return url;
 	}
 
-	function getVisibleStateAbbreviations() {
-        const { activeStateAbbr } = settings;
-        return sdk.DataModel.States.getAll()
-            .map(state => STATES_HASH[state.name])
-            .filter(stateAbbr => STATE_SETTINGS[stateAbbr]
-                && STATE_SETTINGS.global.isPermitted(stateAbbr)
-                && (!activeStateAbbr || activeStateAbbr === 'ALL' || activeStateAbbr === stateAbbr));
-    }
-
 	function getAsync(url, context) {
 		return new Promise((resolve, reject) => {
 			GM_xmlhttpRequest({
@@ -328,9 +319,10 @@
 	}
 
 	function onSave() {
-		if (!$('.zoom-bar-container')) {
+		if (!$('.zoom-bar-container')[0]) {
 			waitForElm('.zoom-bar-container').then(AddZoomDisplay);
 		}
+        else AddZoomDisplay();
 	}
 
 	function fetchLayerRT(context) {
@@ -591,10 +583,10 @@
 		$('#mods-hlrt').prop('checked', settings.layerVisible);
 	}
 
-	function initZoom() {
+    function initZoom() {
 		AddZoomDisplay();
 		sdk.Events.on({ eventName: 'wme-map-zoom-changed', eventHandler: UpdateZoomDisplay });
-		//W.editingMediator.actionManager.events.register("afterclearactions",null,onSave);
+        sdk.Events.on({ eventName: 'wme-save-finished', eventHandler: onSave });
 	}
 
 	    async function initGui() {
